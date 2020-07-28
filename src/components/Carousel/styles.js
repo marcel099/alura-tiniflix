@@ -46,9 +46,9 @@ export const VideoCardList = styled.ul`
     margin-right: 16px;
   }
 
-  &::-webkit-scrollbar {
+  /* &::-webkit-scrollbar {
     display: none;
-  }
+  } */
 `;
 
 export const VideoCardGroupContainer = styled.section`
