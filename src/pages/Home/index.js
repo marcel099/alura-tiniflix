@@ -14,30 +14,44 @@ function Home() {
         videoDescription={"O que é Front-end? Trabalhando na área os termos HTML, CSS e JavaScript fazem parte da rotina das desenvolvedoras e desenvolvedores. Mas o que eles fazem, afinal? Descubra com a Vanessa!"}
       />
 
-      <Carousel
-        ignoreFirstVideo
-        category={dadosIniciais.categorias[0]}
-      />
+{/* {
+      "titulo": "Front End",
+      "link": "https://www.alura.com.br/formacao-front-end",
+      "cor": "#6BD1FF",
+      "link_extra": {
+        "text": "Formação de Front End na Alura",
+        "url": "https://www.alura.com.br/cursos-online-front-end"
+      },
+      "videos": [
+        {
+          "titulo": "O que faz uma desenvolvedora front-end? #HipstersPontoTube",
+          "url": "https://www.youtube.com/watch?v=ZY3-MFxVdEw"
+        },
+        {
+          "titulo": "SEO com React",
+          "url": "https://www.youtube.com/watch?v=c8mVlakBESE"
+        }   
+      ]
+    }, */}
+      
+      {dadosIniciais.categorias.map((categoria, i) => {
+        if (i === 0)    // Pokémon, SuperOnze, Ilha dos Desafios
+        {
+          return (
+            <Carousel
+              ignoreFirstVideo
+              category={categoria}
+            />
+          );
+        }
 
-      <Carousel
-        category={dadosIniciais.categorias[1]}
-      />
+        return (      
+          <Carousel
+            category={categoria}
+          />
+        );
+      })}
 
-      <Carousel
-        category={dadosIniciais.categorias[2]}
-      />      
-
-      <Carousel
-        category={dadosIniciais.categorias[3]}
-      />      
-
-      <Carousel
-        category={dadosIniciais.categorias[4]}
-      />      
-
-      <Carousel
-        category={dadosIniciais.categorias[5]}
-      />
     </PageDefault>
   );
 }
