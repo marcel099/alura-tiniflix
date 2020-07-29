@@ -39,6 +39,7 @@ function Home() {
         {
           return (
             <Carousel
+              key={categoria.title}
               ignoreFirstVideo
               category={categoria}
             />
@@ -46,7 +47,8 @@ function Home() {
         }
 
         return (      
-          <Carousel
+          <Carousel 
+            key={categoria.title}
             category={categoria}
           />
         );
