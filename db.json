@@ -1,0 +1,22 @@
+{
+  "categorias": [
+    {
+      "id": 1,
+      "nome": "Ilha dos Desafios",
+      "descricao": "1ª Temporada",
+      "cor": "#cdb1ff"
+    },
+    { 
+      "id": 2,
+      "nome": "Super Onze",
+      "descricao": "1ª Temporada",
+      "cor": "blue"
+    },
+    { 
+      "id": 3,
+      "nome": "Hunter X Hunter",
+      "descricao": "30 primeiros episódios dublados",
+      "cor": "green"
+    }
+  ]
+}
