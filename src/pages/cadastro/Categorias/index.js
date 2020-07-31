@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
 import Button from '../../../components/Button';
+import useForm from '../../../hooks/useForm';
+import config from '../../../config';
 
 function CadastroCategoria() {
   const valoresIniciais = {
@@ -12,31 +14,12 @@ function CadastroCategoria() {
     cor: '#000000',
   };
 
+  const { handleChange, values, clearForm } = useForm(valoresIniciais);
+
   const [categorias, setCategorias] = useState([]);
-  const [values, setValues] = useState(valoresIniciais);
-  // const [descricao, setDescricao] = useState('')
-  // const [cor, setCor] = useState('')
-
-  function setValue(chave, valor) {
-    setValues({
-      ...values,
-      [chave]: valor,
-    });
-  }
-
-  function handleChange({ target }) {
-    setValue(
-      target.getAttribute('name'),
-      target.value,
-    );
-  }
 
   useEffect(() => {
-    const URL_TOP = window.location.hostname.includes('localhost')
-      ? 'http://localhost:8080/categorias'
-      : 'https://ugaflix-marcel099.herokuapp.com/categorias';
-
-    fetch(URL_TOP)
+    fetch(`${config.URL_BACKEND}/categorias`)
       .then(async (response) => {
         const respostaConvertida = await response.json();
         setCategorias([
@@ -52,12 +35,12 @@ function CadastroCategoria() {
         {values.nome}
       </h1>
 
-      <form onSubmit={function handleSubmit(evento) {
-        evento.preventDefault();
+      <form onSubmit={(e) => {
+        e.preventDefault();
 
         setCategorias([...categorias, values]);
 
-        setValues(valoresIniciais);
+        clearForm(valoresIniciais);
       }}
       >
         <FormField
@@ -96,9 +79,9 @@ function CadastroCategoria() {
       )}
 
       <ul>
-        {categorias.map((categoria, indice) => (
-          <li key={indice}>
-            {categoria.nome}
+        {categorias.map((categoria) => (
+          <li key={categoria.id}>
+            {categoria.titulo}
           </li>
         ))}
       </ul>
