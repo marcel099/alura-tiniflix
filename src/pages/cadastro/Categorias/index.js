@@ -32,9 +32,10 @@ function CadastroCategoria() {
   }
 
   useEffect(() => {
-    console.log('alo, to cansado');
+    const URL_TOP = window.location.hostname.includes('localhost')
+      ? 'http://localhost:8080/categorias'
+      : 'https://ugaflix-marcel099.herokuapp.com/categorias';
 
-    const URL_TOP = 'http://localhost:8080/categorias';
     fetch(URL_TOP)
       .then(async (response) => {
         const respostaConvertida = await response.json();
