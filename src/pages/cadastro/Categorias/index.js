@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
 import Button from '../../../components/Button';
 import useForm from '../../../hooks/useForm';
-import config from '../../../config';
+import categoriasRepository from '../../../repositories/categorias';
 
 function CadastroCategoria() {
+  const history = useHistory();
+
   const valoresIniciais = {
     nome: '',
     descricao: '',
@@ -19,12 +21,12 @@ function CadastroCategoria() {
   const [categorias, setCategorias] = useState([]);
 
   useEffect(() => {
-    fetch(`${config.URL_BACKEND}/categorias`)
-      .then(async (response) => {
-        const respostaConvertida = await response.json();
-        setCategorias([
-          ...respostaConvertida, // Utiliza o spread operator para poder limpar o lixo da memória
-        ]);
+    categoriasRepository.getAll()
+      .then((categoriasBuscadas) => {
+        setCategorias(categoriasBuscadas);
+      })
+      .catch((err) => {
+        console.log(err.message);
       });
   }, []);
 
@@ -39,6 +41,15 @@ function CadastroCategoria() {
         e.preventDefault();
 
         setCategorias([...categorias, values]);
+
+        categoriasRepository.create({
+          titulo: values.titulo,
+          cor: values.cor,
+          descricao: values.descricao,
+        })
+          .then(() => {
+            history.push('/');
+          });
 
         clearForm(valoresIniciais);
       }}

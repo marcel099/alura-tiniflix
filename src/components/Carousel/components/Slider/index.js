@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import SlickSlider from 'react-slick';
-import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import styled, { css } from 'styled-components';
 
 const Container = styled.ul`
   padding: 0;
@@ -23,8 +24,17 @@ const Container = styled.ul`
   .slick-prev {
     left: 0;
   }
+
   .slick-next {
     right: 16px;
+  }
+
+  .slick-prev, .slick-next {
+    ${({ categoryColor }) => categoryColor && css`
+      &::before {
+        color: ${categoryColor};
+      }
+    `}
   }
 `;
 
@@ -38,21 +48,56 @@ export const SliderItem = styled.li`
   }
 `;
 
+// function SampleNextArrow(props) {
+//   const { className, style, onClick } = props;
+//   return (
+//     <div
+//       className={className}
+//       style={{ ...style, color: "red" }}
+//       onClick={onClick}
+//     />
+//   );
+// }
 
-const Slider = ({ children }) => (
-  <Container>
-    <SlickSlider {...{
-      dots: false,
-      infinite: true,
-      speed: 300,
-      centerMode: false,
-      variableWidth: true,
-      adaptiveHeight: true,
-    }}
+// function SamplePrevArrow(props) {
+//   const { className, style, onClick } = props;
+//   return (
+//     <div
+//       className={className}
+//       style={{ ...style, color: "green" }}
+//       onClick={onClick}
+//     />
+//   );
+// }
+
+function Slider({ categoryColor, children }) {
+  return (
+    <Container
+      categoryColor={categoryColor}
     >
-      {children}
-    </SlickSlider>
-  </Container>
-);
+      <SlickSlider {...{
+        dots: false,
+        infinite: true,
+        speed: 300,
+        centerMode: false,
+        variableWidth: true,
+        adaptiveHeight: true,
+        swipeToSlide: true,
+      }}
+      >
+        {children}
+      </SlickSlider>
+    </Container>
+  );
+}
 
-export default Slider; 
+Slider.defaultProps = {
+  categoryColor: 'red',
+};
+
+Slider.propTypes = {
+  categoryColor: PropTypes.string,
+  children: PropTypes.string.isRequired,
+};
+
+export default Slider;
